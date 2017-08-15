@@ -19,7 +19,10 @@ module Griddler
                 :raw_headers,
                 :attachments,
                 :vendor_specific,
-                :spam_report
+                :spam_report,
+                :spam_score,
+                :spf,
+                :dkim
 
     def initialize(params)
       @params = params
@@ -47,6 +50,9 @@ module Griddler
       @vendor_specific = params.fetch(:vendor_specific, {})
 
       @spam_report = params[:spam_report]
+      @spam_score = params[:spam_score]
+      @spf = params[:SPF]
+      @dkim = params[:dkim]
     end
 
     def to_h
@@ -69,9 +75,6 @@ module Griddler
       }
     end
 
-    def spam_score
-      @spam_report[:score] if @spam_report
-    end
 
     private
 
